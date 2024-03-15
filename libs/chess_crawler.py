@@ -2,6 +2,8 @@ from urllib.request import urlopen
 from urllib.error import HTTPError
 import json
 
+TITLES = ["GM", "WGM", "IM", "WIM", "FM", "WFM", "NM", "WNM", "CM", "WCM"]
+
 def get_player(username):
     url = f"https://api.chess.com/pub/player/{username}"
 
@@ -19,7 +21,12 @@ def get_player(username):
         return False
 
     return data
+
+def get_titled_player_usernames_by_title(title_abbreviation):
+    if title_abbreviation not in TITLES:
+        return false
+    url = f"https://api.chess.com/pub/titled/{title_abbreviation}"
     response = urlopen(url)
     data = json.load(response)
-    return data
+    return data["players"]
 
