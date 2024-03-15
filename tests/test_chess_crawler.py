@@ -1,4 +1,4 @@
-from libs.chess_crawler import get_player
+from libs.chess_crawler import get_player, get_titled_player_usernames_by_title, TITLES
 
 def test_get_player_return_structure():
     input = "kanna_yukari"
@@ -33,3 +33,20 @@ def test_get_player_return_structure():
     for key, expected_type in expected_types.items():
         assert isinstance(result[key], expected_type), f"The value for '{key}' must be type of {expected_type.__name__}"
 
+def test_get_player_with_a_username_that_does_not_exist():
+    input = 2 * "a"
+    result = get_player(input)
+    assert result == False 
+
+def test_get_player_with_a_empty_username():
+    input = ""
+    result = get_player(input)
+    assert result == False
+
+def test_get_player_return_structure():
+    for title in TITLES:
+        players = get_titled_player_usernames_by_title(title)
+        assert isinstance(players, list)
+
+        for player in players:
+            assert isinstance(player, str)
