@@ -2,6 +2,12 @@
 
 Discord bot for chess players
 
+## Features
+
+- [ ] Chess crawler: Chess.com (lichess can be add as another options to be crawled in the future);
+- [ ] Ranking server's players;
+- [ ] Server Club and Tournament Links: Allows users to request and receive links to the server's chess club and upcoming tournaments directly through the bot.
+
 ## First steps
 
 1. Create virtual environment with `python -m venv env`;
