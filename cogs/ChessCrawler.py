@@ -12,7 +12,7 @@ class ChessCrawler(commands.Cog):
     async def run_request(request, args):
         pass
     
-    def convert_boolean(boolean):
+    def convert_boolean(self, boolean):
         if boolean:
             return "sim"
         else:
@@ -28,30 +28,29 @@ class ChessCrawler(commands.Cog):
 
         last_online = datetime.fromtimestamp(profile["last_online"])
         joined = datetime.fromtimestamp(profile["joined"])
-        country = profile[country]
+        country = profile["country"]
         name = profile["username"]
-        if profile["name"]:
+        if "name" in profile:
             name = profile["name"]
 
-
         embed = discord.Embed(title=name, description="Perfil do chess.com")
-        embed.set_author(name=f"@{profile["username"]}", url=profile["url"])
-        if profile["avatar"]:
+        embed.set_author(name=f"@{profile['username']}", url=profile["url"])
+        if "avatar" in profile:
             embed.set_thumbnail(url=profile["avatar"])
 
         embed.add_field(name="ID", value=profile["player_id"])
         embed.add_field(name="Seguidores", value=profile["followers"])
-        embed.add_field(name="País", value=f"{country["name"]} ({country["code"]})")
+        embed.add_field(name="País", value=f"{country['name']} ({country['code']})")
         embed.add_field(name="Última vez online", value=last_online.strftime(self.timeformat))
-        embed.add_field(name="Conta criada em" value=joined.strftime(self.timeformat))
+        embed.add_field(name="Conta criada em", value=joined.strftime(self.timeformat))
         embed.add_field(name="Conta", value=profile["status"])
         embed.add_field(name="Streamer", value=self.convert_boolean(profile["is_streamer"]))
-        if profile["twitch_url"]:
+        if "twitch_url" in profile:
             embed.add_field(name="Twitch", value=profile["twitch_url"])
         embed.add_field(name="Verificado", value=self.convert_boolean(profile["verified"]))
         embed.add_field(name="Liga", value=profile["league"])
 
-        if profile["title"]:
+        if "title" in profile:
             embed.add_field(name="Titulo", value=profile["title"])
             embed.add_field(name="Rating FIDE", value=profile["fide"])
 
@@ -61,7 +60,7 @@ class ChessCrawler(commands.Cog):
 
         await ctx.send(str(profile))
         await ctx.send(embed=embed)
-        print("Profile was returnet to the author!")
+        print("Profile was returned to the author!")
 
 async def setup(bot):
     await bot.add_cog(ChessCrawler(bot))
