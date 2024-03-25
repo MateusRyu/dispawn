@@ -49,7 +49,6 @@ def test_get_player_with_a_empty_username():
     result = get_player(input)
     assert result == False
 
-@mark.xfail(not check_internet_conection(), reason="This test need  a internet connection.")
 
 @mark.api
 def test_get_player_return_structure():
