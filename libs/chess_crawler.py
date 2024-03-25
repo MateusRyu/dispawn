@@ -10,6 +10,9 @@ def get_player(username):
     try:
         response = urlopen(url)
         data = json.load(response)
+
+        country_response = urlopen(data["country"])
+        data["country"] = json.load(country_response)
     except HTTPError as error:
         if error.code == 404:
             print(f"Error 404: username '{username}' not found.")
