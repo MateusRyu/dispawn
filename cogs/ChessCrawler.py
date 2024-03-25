@@ -65,7 +65,7 @@ class ChessCrawler(commands.Cog):
         embed.set_footer(text=f"Dados coletados em: {timestamp}")
         embed.color = discord.Color.green()
 
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
         print("Profile was returned to the author!")
 
 async def setup(bot):
