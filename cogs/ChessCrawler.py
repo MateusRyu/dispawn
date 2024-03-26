@@ -68,5 +68,14 @@ class ChessCrawler(commands.Cog):
         await ctx.reply(embed=embed)
         print("Profile was returned to the author!")
 
+    @commands.command()
+    async def stats(self, ctx, username = None):
+        print(f"Start to get '{username}' stast..")
+        username = username or ctx.author
+        stats = get_player_stats(username)
+
+        await ctx.reply(str(stats))
+
+
 async def setup(bot):
     await bot.add_cog(ChessCrawler(bot))
