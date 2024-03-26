@@ -27,9 +27,11 @@ def get_player(username):
 
 def get_titled_player_usernames_by_title(title_abbreviation):
     if title_abbreviation not in TITLES:
-        return false
+        return False
     url = f"https://api.chess.com/pub/titled/{title_abbreviation}"
     response = urlopen(url)
     data = json.load(response)
     return data["players"]
+
+def get_player_stats(username):
 
