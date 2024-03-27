@@ -6,9 +6,11 @@ from discord.ext import commands
 from libs.Database import Database
 
 load_dotenv()
+TESTING_GUILD_ID = os.getenv('TESTING_GUILD_ID')
 TOKEN = os.getenv('BOT_TOKEN')
 MONGODB_TOKEN = os.getenv('MONGODB_TOKEN')
 
+test_guild = discord.Object(id=TESTING_GUILD_ID)
 db = Database(MONGODB_TOKEN)
 intents = Intents.default()
 intents.message_content = True
@@ -31,16 +33,17 @@ async def on_ready():
     await load_cogs("cogs")
 
 
-@bot.command()
-async def ping(ctx):
+@bot.tree.command()
+async def ping(ctx: Interaction):
     print("pong")
-    if not ctx.author.bot:
-        await ctx.reply(f'Pong! In {round(bot.latency * 1000)}ms')
+    if not ctx.user.bot:
+        await ctx.response.send_message(f'Pong! In {round(bot.latency * 1000)}ms')
 
 @bot.hybrid_command()
 @commands.is_owner()
 async def sync(ctx):
     print("Syncs...")
+    bot.tree.copy_global_to(guild=test_guild)
     commands_list = await bot.tree.sync()
     print("Sync has been completed")
     await ctx.reply(f"{len(commands_list)} commands got synced!")
