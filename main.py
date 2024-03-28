@@ -1,17 +1,13 @@
 from dotenv import load_dotenv
 import os
-import discord
-from discord import Intents, Interaction, app_commands
+from discord import Intents, Interaction, app_commands, Object
 from discord.ext import commands
-from libs.Database import Database
 
 load_dotenv()
 TESTING_GUILD_ID = os.getenv('TESTING_GUILD_ID')
 TOKEN = os.getenv('BOT_TOKEN')
-MONGODB_TOKEN = os.getenv('MONGODB_TOKEN')
 
-test_guild = discord.Object(id=TESTING_GUILD_ID)
-db = Database(MONGODB_TOKEN)
+test_guild = Object(id=TESTING_GUILD_ID)
 intents = Intents.default()
 intents.message_content = True
 
