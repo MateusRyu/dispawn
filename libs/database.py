@@ -57,4 +57,18 @@ def delete_club(guild_id):
     result = club_collection.delete_one({"guild_id": guild_id})
     return result
 
+def insert_player(guild_id, user_id, site, username, invite_link):
+    db = get_database("player")
+    players_collection = db[site]
+    query = {"guild_id": guild_id, "user_id": user_id, "username": username, "invite_link": invite_link}
+    request = players_collection.insert_one(query)
+    return request.inserted_id
 
+def get_player():
+    pass
+
+def update_player():
+    pass
+
+def delete_player():
+    pass
