@@ -64,8 +64,18 @@ def insert_player(guild_id, user_id, site, username, invite_link):
     request = players_collection.insert_one(query)
     return request.inserted_id
 
-def get_player():
-    pass
+def get_player(guild_id, user_id, site):
+    db = get_database("player")
+    player_collection = db[site]
+    query = {"guild_id": guild_id, "user_id": user_id}
+    result = club_collection.find(query)
+
+    for item in result:
+        player = item
+
+    if "player" in locals():
+        return player 
+    return False
 
 def update_player():
     pass
