@@ -77,8 +77,14 @@ def get_player(guild_id, user_id, site):
         return player 
     return False
 
-def update_player():
-    pass
+def update_player(guild_id, user_id, site, new_values):
+    db = get_database("player")
+    club_collection = db[site]
+    filter = {"guild_id": guild_id, "user_id": user_id}
+    values = {"$set": new_values}
+    result = club_collection.update_one(filter, values)
+    return result
+
 
 def delete_player():
     pass
