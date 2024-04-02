@@ -86,5 +86,8 @@ def update_player(guild_id, user_id, site, new_values):
     return result
 
 
-def delete_player():
-    pass
+def delete_player(guild_id, user_id, site):
+    db = get_database("player")
+    club_collection = db[site]
+    result = club_collection.delete_one({"guild_id": guild_id, "user_id": user_id})
+    return result
