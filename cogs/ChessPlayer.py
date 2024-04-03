@@ -41,6 +41,7 @@ class ChessPlayer(commands.Cog):
     @app_commands.command()
     @app_commands.describe(invite_link="Link de convite de amizade", username="Nick do jogador")
     async def update_player(self, interact: Interaction, *, invite_link:str = None, username:str = None):
+        site = "chessDotCom"
         new_values = {}
         await interact.response.send_message('Atualizando dados do jogador...', ephemeral=True)
         if invite_link:
@@ -51,12 +52,13 @@ class ChessPlayer(commands.Cog):
             new_values["username"] = username 
             await interact.followup.send(f'Definindo o nick para `{username}`...', ephemeral=True)
 
-        result = update_player(interact.guild_id, interact.user.id, new_values)
+        result = update_player(interact.guild_id, interact.user.id, site, new_values)
         await interact.followup.send('Atualização completa!', ephemeral=True)
 
     @app_commands.command()
     async def player(self, interact: Interaction, member:Member):
-        player = get_player(interact.guild_id, member.id)
+        site = "chessDotCom"
+        player = get_player(interact.guild_id, member.id, site)
         if player:
             await interact.response.send_message(str(player))
         else:
@@ -64,8 +66,9 @@ class ChessPlayer(commands.Cog):
 
     @app_commands.command()
     async def delete_player(self, interact: Interaction):
+        site = "chessDotCom"
         async def confirm(interact: Interaction):
-            response = delete_player(interact.guild_id, interact.user.id)
+            response = delete_player(interact.guild_id, interact.user.id, site)
             await interact.response.send_message('Dados do jogador foi excluido com sucesso!', ephemeral=True)
 
         async def cancel(interact: Interaction):
