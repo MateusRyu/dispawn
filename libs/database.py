@@ -68,7 +68,7 @@ def get_player(guild_id, user_id, site):
     db = get_database("player")
     player_collection = db[site]
     query = {"guild_id": guild_id, "user_id": user_id}
-    result = club_collection.find(query)
+    result = player_collection.find(query)
 
     for item in result:
         player = item
@@ -79,15 +79,15 @@ def get_player(guild_id, user_id, site):
 
 def update_player(guild_id, user_id, site, new_values):
     db = get_database("player")
-    club_collection = db[site]
+    player_collection = db[site]
     filter = {"guild_id": guild_id, "user_id": user_id}
     values = {"$set": new_values}
-    result = club_collection.update_one(filter, values)
+    result = player_collection.update_one(filter, values)
     return result
 
 
 def delete_player(guild_id, user_id, site):
     db = get_database("player")
-    club_collection = db[site]
-    result = club_collection.delete_one({"guild_id": guild_id, "user_id": user_id})
+    player_collection = db[site]
+    result = player_collection.delete_one({"guild_id": guild_id, "user_id": user_id})
     return result
