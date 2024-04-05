@@ -6,7 +6,8 @@ Discord bot for chess players
 
 - [ ] Chess crawler: Chess.com (lichess can be add as another options to be crawled in the future);
 - [ ] Ranking server's players;
-- [ ] Server Club and Tournament Links: Allows users to request and receive links to the server's chess club and upcoming tournaments directly through the bot.
+- [x] Server Club Link: Allows users to request and receive links to the server's chess club;
+- [ ] Tournament Link: Receive upcoming tournaments directly through the bot.
 
 ## First steps
 
