@@ -77,6 +77,18 @@ def get_player(guild_id, user_id, site):
         return player 
     return False
 
+def get_all_players(guild_id, site):
+    db = get_database("player")
+    player_collection = db[site]
+    query = {"guild_id": guild_id}
+    result = player_collection.find(query)
+    players = []
+        
+    for item in result:
+        player.append(item)
+    return players
+
+
 def update_player(guild_id, user_id, site, new_values):
     db = get_database("player")
     player_collection = db[site]
