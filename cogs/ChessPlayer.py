@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import app_commands, Interaction, ButtonStyle, Member
+from discord import app_commands, Interaction, ButtonStyle, Member, Embed
 from discord.ui import View, Button
 from libs.database import insert_player, get_player, update_player, delete_player
 
@@ -59,8 +59,15 @@ class ChessPlayer(commands.Cog):
     async def player(self, interact: Interaction, member:Member):
         site = "chessDotCom"
         player = get_player(interact.guild_id, member.id, site)
+
         if player:
-            await interact.response.send_message(str(player))
+            embed = Embed(title=member.display_name, description=f"Perfil de {member.display_name} no chess.com")
+            embed.set_author(name=f"@{member.name}")
+            embed.set_thumbnail(url=member.avatar)
+            embed.add_field(name="Username", value=player["username"])
+            if player["invite_link"] != "":
+                embed.add_field(name="Convide de amizade", value=player["invite_link"])
+            await interact.response.send_message(embed=embed)
         else:
             await interact.response.send_message("Este membro não cadastrou seus dados de jogador...")
 
