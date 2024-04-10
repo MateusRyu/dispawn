@@ -51,3 +51,21 @@ def get_player_stats(username):
 
     return data
 
+def get_player_archives(username):
+    url = f"https://api.chess.com/pub/player/{username}/games/archives"
+    
+    try:
+        response = urlopen(url)
+        data = json.load(response)
+    except HTTPError as error:
+        if error.code == 404:
+            print(f"Error 404: username '{username}' not found.")
+        else:
+            prin(f"Error {error.code}: search failed.")
+        return False
+    except Exception as error:
+        print(f"Error: {error}.")
+        return False
+
+    return data
+
